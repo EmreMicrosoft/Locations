@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -38,6 +36,7 @@ namespace Locations.Controllers
                 .Include(c => c.Country)
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (city == null)
             {
                 return NotFound();
@@ -50,13 +49,11 @@ namespace Locations.Controllers
         public IActionResult Create()
         {
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name");
-            ViewData["StateId"] = new SelectList(_context.States, "Id", "Name");
+            ViewData["StateId"] = new SelectList(_context.States.Where(x => x.CountryId == x.Country.Id), "Id", "Name");
             return View();
         }
 
         // POST: Cities/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CountryId,StateId,Name")] City city)
@@ -67,6 +64,7 @@ namespace Locations.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
             ViewData["StateId"] = new SelectList(_context.States, "Id", "Name", city.StateId);
             return View(city);
@@ -91,8 +89,6 @@ namespace Locations.Controllers
         }
 
         // POST: Cities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CountryId,StateId,Name")] City city)
@@ -115,13 +111,10 @@ namespace Locations.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["CountryId"] = new SelectList(_context.Countries, "Id", "Name", city.CountryId);
             ViewData["StateId"] = new SelectList(_context.States, "Id", "Name", city.StateId);
             return View(city);
@@ -139,6 +132,7 @@ namespace Locations.Controllers
                 .Include(c => c.Country)
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            
             if (city == null)
             {
                 return NotFound();
