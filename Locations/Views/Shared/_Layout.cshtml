@@ -26,6 +26,19 @@
                         </li>
                     </ul>
                 </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Locations
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-area="" asp-controller="Continents" asp-action="Index">Continents</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="States" asp-action="Index">States</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Cities" asp-action="Index">Cities</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Districts" asp-action="Index">Districts</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Towns" asp-action="Index">Towns</a>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
