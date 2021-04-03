@@ -8,6 +8,7 @@ using System.Linq;
 using Locations.Data;
 using Locations.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Locations.Controllers
 {
@@ -28,6 +29,14 @@ namespace Locations.Controllers
             var countryList = new SelectList(_context.Countries.ToList());
             return View();
         }
+
+
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {
