@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Locations.Data;
+using Locations.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +47,17 @@ namespace Locations.Repos
 
             return new SelectList(countries,
                 "Value", "Text");
+        }
+
+        public bool AddCountry(Country country)
+        {
+            if (country == null)
+                return false;
+
+            _context.Countries.Add(country);
+            _context.SaveChanges();
+
+            return true;
         }
     }
 }
